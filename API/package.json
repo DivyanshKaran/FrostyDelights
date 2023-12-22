@@ -1,20 +1,26 @@
 {
-  "name": "api",
+  "name": "api_for_eisfabrik",
   "version": "0.0.0",
   "private": true,
+  "description": "A WebApp for shop Owners to order for theier Inventory directly from the factory",
+  "main": "app.js",
+  "author": "Divyansh Karan",
+  "license": "MIT",
   "scripts": {
-    "start": "node ./bin/www"
+    "devstart": "nodemon server.js",
+    "start": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-async-handler": "^1.2.0",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "mongoose": "^8.0.3",
     "morgan": "~1.9.1",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "ndb": "^1.1.5",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.1"
   }
 }
