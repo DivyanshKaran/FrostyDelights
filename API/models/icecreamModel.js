@@ -23,7 +23,7 @@ const iceCreamschema = new mongoose.Schema({
   rating: {
     type: Number,
     min: [1, "Rating must be atleast 1"],
-    max: ["Rating must not be more than 5"],
+    max: [5, "Rating must not be more than 5"],
     default: 4.0,
     set: (val) => Math.round(val * 10) / 10,
   },
