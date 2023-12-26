@@ -15,12 +15,14 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 
   // Create A new token
   const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
   // Built the cookie options
   const cookieOptions = {
-    expires: new Date() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60,
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES * 60 * 60 * 1000
+    ),
     httpOnly: true,
   };
 
@@ -51,19 +53,24 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
   const user = await User.findOne({ email: email }).select("+password");
 
-  if (!user || !user.correctPassword(password, user.password)) {
+  if (
+    !user ||
+    !(await User.schema.methods.correctPassword(password, user.password))
+  ) {
     return next(new AppError(401, "Incorrect Email or Password"));
   }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
   const cookieOptions = {
-    expires: process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000,
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES * 60 * 60 * 1000
+    ),
     httpOnly: true,
   };
 
-  if (process.env.NODE_ENV === "devlopment") cookieOptions.secure = true;
+  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
