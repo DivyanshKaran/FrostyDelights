@@ -1,3 +1,4 @@
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
@@ -79,3 +80,48 @@ exports.login = asyncHandler(async (req, res, next) => {
     token,
   });
 });
+
+exports.protect = asyncHandler(async (req, res, next) => {
+  let token = " ";
+  // console.log(req.cookies.jwt);
+  // if (
+  //   req.headers.authorization &&
+  //   req.headers.authorization.startsWith("Bearer")
+  // ) {
+  //   token = req.headers.authorization.split(" ")[1];
+  // } else
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+  // console.log(token);
+  if (!token) {
+    return next(
+      new AppError(401, "You are not Logged in. Please login to get access")
+    );
+  }
+  // console.log(process.env.JWT_SECRET);
+  // console.log(token);
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  // console.log(decoded);
+  const currentUser = await User.findById(decoded.id);
+  // console.log(currentUser);
+  if (!currentUser) {
+    return next(
+      new AppError(401, "The User Belonging to the the token does not exist")
+    );
+  }
+
+  req.user = currentUser;
+  next();
+});
+
+exports.restrictsto = function (...roles) {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError(403, "You do not have permission to perform this action")
+      );
+    }
+    next();
+  };
+};

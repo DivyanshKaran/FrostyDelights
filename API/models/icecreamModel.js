@@ -10,7 +10,7 @@ const iceCreamschema = new mongoose.Schema({
 
   image: {
     type: String,
-    required: [true, "An Ice Cream must have an Image"],
+    // required: [true, "An Ice Cream must have an Image"],
     unique: true,
   },
 
