@@ -5,5 +5,5 @@ interface HeroProps {
 }
 
 export default function Hero({ children }: HeroProps) {
-  return <div>{children}</div>;
+  return <div className="">{children}</div>;
 }
