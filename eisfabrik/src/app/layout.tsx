@@ -3,7 +3,6 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -18,14 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="winter">
       <body
         className={cn(
           "min-h-screen bg-[--background] relative font-sans antialiased =",
           fontSans.variable
         )}
       >
-        <ThemeProvider
+        <Navbar />
+        {children}
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
@@ -33,7 +34,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
-        </ThemeProvider>
+        </ThemeProvider> */}
       </body>
     </html>
   );
