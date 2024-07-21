@@ -5,6 +5,18 @@
 @layer base {
   @layer base {
     :root {
+      --beige: #f3eee3;
+      --black: #181d14;
+      --white: white;
+      --green: #04da00;
+      --beige-light: #f8f4eb;
+      --beige-x-light: #fcfbfa;
+      --pink: #e60098;
+      --yellow: #ecc600;
+      --blue: #0085eb;
+      --purple: #7300cd;
+      --orange: #e97e00;
+      --teal: #00c9a5;
     }
 
     .dark {

@@ -1,5 +1,5 @@
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
+import { Hero } from "@/components/ui/Hero";
+import { ImageCarousel } from "@/components/ui/ImageCarousel";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <Hero></Hero>
+      <Hero />
+      <ImageCarousel />
     </main>
   );
 }
