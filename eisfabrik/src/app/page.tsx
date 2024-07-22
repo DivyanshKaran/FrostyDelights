@@ -1,5 +1,5 @@
+import { CardsCarousel } from "@/components/ui/CardsCarousel";
 import { Hero } from "@/components/ui/Hero";
-import { ImageCarousel } from "@/components/ui/ImageCarousel";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main className="mx-[5vw]">
       <Hero />
-      <ImageCarousel />
+      <CardsCarousel />
     </main>
   );
 }
