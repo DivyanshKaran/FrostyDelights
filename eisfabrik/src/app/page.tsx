@@ -1,4 +1,6 @@
 import { CardsCarousel } from "@/components/ui/CardsCarousel";
+import { Footer } from "@/components/ui/Footer";
+import { GetInTouch } from "@/components/ui/GetInTouch";
 import { Hero } from "@/components/ui/Hero";
 import { Metadata } from "next";
 
@@ -13,6 +15,8 @@ export default function Home() {
     <main className="mx-[5vw]">
       <Hero />
       <CardsCarousel />
+      <GetInTouch />
+      <Footer />
     </main>
   );
 }
