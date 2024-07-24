@@ -1,5 +1,10 @@
+import { SignUpMerchant } from "@/components/ui/Sign-up-merchant";
 import React from "react";
 
 export default function Page() {
-  return <div>Sign Up Merchant</div>;
+  return (
+    <div>
+      <SignUpMerchant />
+    </div>
+  );
 }

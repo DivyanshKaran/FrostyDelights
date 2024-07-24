@@ -50,10 +50,7 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body>
-          <MantineProvider theme={theme}>
-            <Navbar />
-            {children}
-          </MantineProvider>
+          <MantineProvider theme={theme}>{children}</MantineProvider>
         </body>
       </body>
     </html>
