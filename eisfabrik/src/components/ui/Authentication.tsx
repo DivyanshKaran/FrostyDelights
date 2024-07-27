@@ -18,13 +18,29 @@ import { GoogleButton } from "./GoogleButton";
 import { TwitterButton } from "./TwitterButton";
 import { Password } from "./PasswordInput";
 
-export function AuthenticationForm(props: PaperProps) {
-  const [type, toggle] = useToggle(["login", "register"]);
-  const form = useForm({
+interface authProps extends PaperProps {
+  type: string;
+}
+
+interface formValues {
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+  adddress: string;
+  terms: boolean;
+}
+
+export function Authentication(props: authProps) {
+  const { type } = props;
+  // const [type, toggle] = useToggle(["login", "register"]);
+  const form = useForm<formValues>({
     initialValues: {
       email: "",
       name: "",
       password: "",
+      confirmPassword: "",
+      adddress: "",
       terms: true,
     },
 
@@ -34,23 +50,28 @@ export function AuthenticationForm(props: PaperProps) {
         val.length <= 6
           ? "Password should include at least 6 characters"
           : null,
+      confirmPassword: (value, values) =>
+        value === values.password ? null : "Passwords do not match",
     },
   });
+  function onSubmit(values: formValues) {
+    console.log(values);
+  }
 
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
       <Text size="lg" fw={500}>
-        Welcome to Mantine, {type} with
+        Welcome to Eisfabrik, {type} with
       </Text>
 
-      <Group grow mb="md" mt="md">
+      <Group grow mb="md" mt="md" className="mx-auto w-[40%]">
         <GoogleButton radius="xl">Google</GoogleButton>
-        <TwitterButton radius="xl">Twitter</TwitterButton>
+        {/* <TwitterButton radius="xl">Twitter</TwitterButton> */}
       </Group>
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
         <Stack>
           {type === "register" && (
             <TextInput
@@ -67,7 +88,7 @@ export function AuthenticationForm(props: PaperProps) {
           <TextInput
             required
             label="Email"
-            placeholder="hello@mantine.dev"
+            placeholder="hazaribagh@gmail.com"
             value={form.values.email}
             onChange={(event) =>
               form.setFieldValue("email", event.currentTarget.value)
@@ -76,21 +97,42 @@ export function AuthenticationForm(props: PaperProps) {
             radius="md"
           />
 
-          {/* <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
+          <Password
             value={form.values.password}
             onChange={(event) =>
               form.setFieldValue("password", event.currentTarget.value)
             }
-            error={
-              form.errors.password &&
-              "Password should include at least 6 characters"
-            }
-            radius="md"
-          /> */}
-          <Password />
+            // error={
+            //   form.errors.password &&
+            //   "Password should include at least 6 characters"
+            // }
+          />
+
+          {type === "register" && (
+            <PasswordInput
+              required
+              label="Confirm Password"
+              placeholder="confirm password"
+              value={form.values.confirmPassword}
+              onChange={(event) =>
+                form.setFieldValue("confirmPassword", event.currentTarget.value)
+              }
+              error={form.errors.confirmPassword && "Password Do not match"}
+              radius="md"
+            />
+          )}
+
+          {type === "register" && (
+            <TextInput
+              label="Address"
+              placeholder="Your address"
+              value={form.values.name}
+              onChange={(event) =>
+                form.setFieldValue("name", event.currentTarget.value)
+              }
+              radius="md"
+            />
+          )}
 
           {type === "register" && (
             <Checkbox
@@ -104,7 +146,7 @@ export function AuthenticationForm(props: PaperProps) {
         </Stack>
 
         <Group justify="space-between" mt="xl">
-          <Anchor
+          {/* <Anchor
             component="button"
             type="button"
             c="dimmed"
@@ -114,7 +156,7 @@ export function AuthenticationForm(props: PaperProps) {
             {type === "register"
               ? "Already have an account? Login"
               : "Don't have an account? Register"}
-          </Anchor>
+          </Anchor> */}
           <Button type="submit" radius="xl">
             {upperFirst(type)}
           </Button>

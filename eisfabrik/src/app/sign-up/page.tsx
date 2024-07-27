@@ -1,11 +1,11 @@
 "use client";
-import { SignUpUser } from "@/components/ui/Sign-up-user";
+import { Authentication } from "@/components/ui/Authentication";
 import React from "react";
 
 export default function Page() {
   return (
-    <div>
-      <SignUpUser />
+    <div className="mx-auto mt-[5vh] w-[50vw]">
+      <Authentication type="register" />
     </div>
   );
 }
