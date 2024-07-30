@@ -75,15 +75,23 @@ export function CardsCarousel() {
 
   return (
     <Carousel
-      slideSize={{ base: "100%", sm: "50%" }}
-      slideGap={{ base: rem(2), sm: "xl" }}
+      slideSize={{ base: "50%", sm: "25%" }}
+      slideGap={{ base: rem(1), sm: "xl" }}
       align="start"
-      slidesToScroll={mobile ? 1 : 3}
+      slidesToScroll={mobile ? 1 : 2}
       withIndicators
       loop
-      className="mx-auto w-[50-vw] mb-[12rem]"
+      className="mb-[12rem]"
     >
       {slides}
     </Carousel>
+    // <Carousel
+    //   slideSize={{ base: "100%", sm: "50%" }}
+    //   slideGap={{ base: rem(2), sm: "xl" }}
+    //   align="start"
+    //   slidesToScroll={mobile ? 1 : 2}
+    // >
+    //   {slides}
+    // </Carousel>
   );
 }
