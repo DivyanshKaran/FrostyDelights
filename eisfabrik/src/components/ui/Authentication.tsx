@@ -1,5 +1,5 @@
 "use client";
-import { useToggle, upperFirst } from "@mantine/hooks";
+import { upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import {
   TextInput,
@@ -11,11 +11,9 @@ import {
   Button,
   Divider,
   Checkbox,
-  Anchor,
   Stack,
 } from "@mantine/core";
 import { GoogleButton } from "./GoogleButton";
-import { TwitterButton } from "./TwitterButton";
 import { Password } from "./PasswordInput";
 
 interface authProps extends PaperProps {
@@ -33,7 +31,7 @@ interface formValues {
 
 export function Authentication(props: authProps) {
   const { type } = props;
-  // const [type, toggle] = useToggle(["login", "register"]);
+
   const form = useForm<formValues>({
     initialValues: {
       email: "",
@@ -97,16 +95,14 @@ export function Authentication(props: authProps) {
             radius="md"
           />
 
-          <Password
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue("password", event.currentTarget.value)
-            }
-            // error={
-            //   form.errors.password &&
-            //   "Password should include at least 6 characters"
-            // }
-          />
+          {type === "register" && (
+            <Password
+              value={form.values.password}
+              onChange={(event) =>
+                form.setFieldValue("password", event.currentTarget.value)
+              }
+            />
+          )}
 
           {type === "register" && (
             <PasswordInput
@@ -118,6 +114,20 @@ export function Authentication(props: authProps) {
                 form.setFieldValue("confirmPassword", event.currentTarget.value)
               }
               error={form.errors.confirmPassword && "Password Do not match"}
+              radius="md"
+            />
+          )}
+
+          {type === "login" && (
+            <PasswordInput
+              required
+              label="Password"
+              placeholder="password"
+              value={form.values.password}
+              onChange={(event) =>
+                form.setFieldValue("password", event.currentTarget.value)
+              }
+              error={form.errors.password && "Password Do not match"}
               radius="md"
             />
           )}
@@ -146,17 +156,6 @@ export function Authentication(props: authProps) {
         </Stack>
 
         <Group justify="space-between" mt="xl">
-          {/* <Anchor
-            component="button"
-            type="button"
-            c="dimmed"
-            onClick={() => toggle()}
-            size="xs"
-          >
-            {type === "register"
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
-          </Anchor> */}
           <Button type="submit" radius="xl">
             {upperFirst(type)}
           </Button>
