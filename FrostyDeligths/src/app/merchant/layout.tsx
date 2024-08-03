@@ -1,16 +1,14 @@
 "use client";
+import { Navbar } from "@/components/ui/Navbar";
+import { Sidebar } from "@/components/ui/Sidebar";
 import {
   AppShell,
-  Burger,
   AppShellHeader,
   AppShellMain,
   AppShellNavbar,
+  Burger,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Sidebar } from "@/components/ui/Sidebar";
-import Link from "next/link";
-import Logo from "@/components/ui/Logo";
-import { Navbar } from "@/components/ui/Navbar";
 
 export default function DashboardLayout({
   children,
@@ -25,14 +23,12 @@ export default function DashboardLayout({
     >
       <AppShellHeader>
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        <Link href="/">
-          <Navbar />
-        </Link>
+        <Navbar burgerDisabled={true} />
       </AppShellHeader>
       <AppShellNavbar>
         <Sidebar />
       </AppShellNavbar>
-      <AppShellMain></AppShellMain>
+      <AppShellMain>{children}</AppShellMain>
     </AppShell>
   );
 }

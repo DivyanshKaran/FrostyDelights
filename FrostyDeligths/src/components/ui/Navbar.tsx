@@ -14,7 +14,11 @@ import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import classes from "../styles/Navbar.module.css";
 
-export function Navbar() {
+interface navbarProps {
+  burgerDisabled: Boolean;
+}
+
+export function Navbar({ burgerDisabled = false }: navbarProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const theme = useMantineTheme();
@@ -48,12 +52,13 @@ export function Navbar() {
               Sign up
             </Button>
           </Group>
-
-          <Burger
-            opened={drawerOpened}
-            onClick={toggleDrawer}
-            hiddenFrom="sm"
-          />
+          {!burgerDisabled && (
+            <Burger
+              opened={drawerOpened}
+              onClick={toggleDrawer}
+              hiddenFrom="sm"
+            />
+          )}
         </Group>
       </header>
 
