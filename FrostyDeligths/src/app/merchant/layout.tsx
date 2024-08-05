@@ -19,7 +19,7 @@ export default function DashboardLayout({
   return (
     <AppShell
       header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      navbar={{ width: 230, breakpoint: "sm", collapsed: { mobile: !opened } }}
     >
       <AppShellHeader>
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
